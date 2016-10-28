@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/trepo/components#readme",
   "devDependencies": {
-    "asini": "1.1.0"
+    "asini": "1.1.0",
+    "eslint": "3.9.0",
+    "eslint-config-google": "0.7.0"
   }
 }
