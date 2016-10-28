@@ -1,0 +1,9 @@
+{
+  "asini": "1.1.0",
+  "packages": [
+    {
+      "glob": "components/*/package.json"
+    }
+  ],
+  "version": "0.0.0"
+}

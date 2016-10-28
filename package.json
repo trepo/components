@@ -1,0 +1,23 @@
+{
+  "name": "components",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Trepo Web Componets Monorepo",
+  "scripts": {
+    "bootstrap": "asini bootstrap",
+    "test": "asini run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trepo/components.git"
+  },
+  "author": "John Clark <socrates37@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trepo/components/issues"
+  },
+  "homepage": "https://github.com/trepo/components#readme",
+  "devDependencies": {
+    "asini": "1.1.0"
+  }
+}
