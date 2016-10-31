@@ -5,5 +5,12 @@ module.exports = {
   extends: 'google',
   rules: {
     'comma-dangle': [2, 'always-multiline'],
+    'require-jsdoc': ['error', {
+        'require': {
+            'FunctionDeclaration': false,
+            'MethodDefinition': false,
+            'ClassDeclaration': false
+        }
+    }]
   }
 }

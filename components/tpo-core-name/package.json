@@ -1,0 +1,13 @@
+{
+  "name": "tpo-core-name",
+  "version": "0.0.0",
+  "description": "",
+  "main": "tpo-test.js",
+  "scripts": {
+    "build": "../../node_modules/.bin/webpack --module-bind 'html=raw' ./component.js bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
