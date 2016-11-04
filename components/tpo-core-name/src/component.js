@@ -1,14 +1,41 @@
-const template = require('./template.html');
+const core = require('tpo-mixins/core.js');
+const shadow = require('tpo-mixins/shadow.js');
 
-class CoreName extends HTMLElement {
+const attributes = [
+  'node',
+  'person',
+  'repo',
+];
+
+class CoreName extends shadow(core(HTMLElement)) {
   constructor() {
-    super();
+    super({
+      template: 'tpo-core-name',
+      attributes,
+      $: {
+        toggle: '#toggle',
+      },
+    });
+  }
+
+  static get observedAttributes() {
+    return attributes;
   }
 
   connectedCallback() {
-    this.innerHTML = 'hello!';
+    super.connectedCallback();
+
+    this.$.toggle.addEventListener('click', (e) => {
+      console.log('toggling', e.target);
+    });
+  }
+
+  _nodeChanged(newVal, oldVal) {
+    console.log('nodeChanged', newVal, oldVal);
   }
 }
 
-document.head.insertAdjacentHTML('beforeend', template);
 window.customElements.define('tpo-core-name', CoreName);
+
+const template = require('./template.html');
+document.head.insertAdjacentHTML('beforeend', template);
