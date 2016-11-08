@@ -12,6 +12,6 @@ describe('tpo-core-name', () => {
     document.body.removeChild(element);
   });
   it('should work', () => {
-    expect(element.innerHTML).to.equal('hello!');
+    expect(element.state).to.equal('new');
   });
 });
