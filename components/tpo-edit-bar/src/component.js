@@ -30,10 +30,10 @@ class EditBar extends core(light(HTMLElement)) {
     this.$.yes.addEventListener('click', (e) => this._yesClicked());
     this.$.no.addEventListener('click', (e) => this._noClicked());
 
-    if (!['new', 'saved'].includes(this.state)) {
-      this.state = 'new';
-    } else {
+    if (['new', 'saved'].includes(this.state)) {
       this._stateChanged(this.state);
+    } else {
+      this.state = 'new';
     }
   }
 
@@ -56,6 +56,7 @@ class EditBar extends core(light(HTMLElement)) {
         this.$.delete.hidden = true;
         this.$.yes.hidden = true;
         this.$.no.hidden = true;
+        this.dispatchEvent(new Event('create'));
         break;
       case 'creating-error':
         this.$.message.innerText = this.message;
@@ -95,6 +96,7 @@ class EditBar extends core(light(HTMLElement)) {
         this.$.delete.disabled = true;
         this.$.yes.hidden = true;
         this.$.no.hidden = true;
+        this.dispatchEvent(new Event('update'));
         break;
       case 'saving-error':
         this.$.message.innerText = this.message;
@@ -127,6 +129,7 @@ class EditBar extends core(light(HTMLElement)) {
         this.$.delete.disabled = true;
         this.$.yes.hidden = true;
         this.$.no.hidden = true;
+        this.dispatchEvent(new Event('delete'));
         break;
       case 'changed-deleting-error':
         this.$.message.innerText = this.message;

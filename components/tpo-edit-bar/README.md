@@ -1,45 +1,37 @@
 # tpo-edit-bar
->
+> Managing editing control and state
 
-## States
-
-|            state            | save hidden | save disabled | delete hidden | delete disabled | yes hidden | no hidden |     message   | error |
-|:----------------------------|:-----------:|:-------------:|:-------------:|:---------------:|:----------:|:---------:|:-------------:|:-----:|
-| new                         |             |               | X             |                 | X          | X         |               |       |
-| creating                    |             | X             | X             |                 | X          | X         | Creating...   |       |
-| creating-error              |             |               | X             |                 | X          | X         | {error}       | X     |
-| saved                       |             | X             |               |                 | X          | X         |               |       |
-| changed                     |             |               |               |                 | X          | X         |               |       |
-| saving                      |             | X             |               | X               | X          | X         | Saving...     |       |
-| saving-error                |             |               |               |                 | X          | X         | {error}       | X     |
-| changed-delete-confirmation | X           | X             | X             |                 |            |           | Are you sure? |       |
-| changed-deleting            |             | X             |               | X               | X          | X         | deleting...   |       |
-| changed-deleting-error      |             |               |               |                 | X          | X         | {error}       | X     |
-| saved-delete-confirmation   | X           | X             | X             |                 |            |           | Are you sure? |       |
-| saved-deleting              |             | X             |               | X               | X          | X         | deleting...   |       |
-| saved-deleting-error        |             | X             |               |                 | X          | X         | {error}       | X     |
+#### States
+|            state            |   save   | delete   |   yes  |   no   |     message   |
+|:----------------------------|:--------:|:--------:|:------:|:------:|:-------------:|
+| new                         |          | hidden   | hidden | hidden |               |
+| creating                    | disabled | hidden   | hidden | hidden | Creating...   |
+| creating-error              |          | hidden   | hidden | hidden | {error}       |
+| saved                       | disabled |          | hidden | hidden |               |
+| changed                     |          |          | hidden | hidden |               |
+| saving                      | disabled | disabled | hidden | hidden | Saving...     |
+| saving-error                |          |          | hidden | hidden | {error}       |
+| changed-delete-confirmation | hidden   | hidden   |        |        | Are you sure? |
+| changed-deleting            | disabled | disabled | hidden | hidden | deleting...   |
+| changed-deleting-error      |          |          | hidden | hidden | {error}       |
+| saved-delete-confirmation   | hidden   | hidden   |        |        | Are you sure? |
+| saved-deleting              | disabled | disabled | hidden | hidden | deleting...   |
+| saved-deleting-error        | disabled |          | hidden | hidden | {error}       |
 
 ## Events
-- `create` - Fired when moving to `saving` from `new`
-- `update` - Fired when moving to `saving` from `changed`, `saving-error`, `changed-deleting-error` or `saved-deleting-error`
-- `delete` - Fired when moving to `deleting` from `confirming`
+- `create` - Fired when moving from `new` or `creating-error` to `saving`.
+- `update` - Fired when moving from `changed`, `saving-error`, `changed-deleting-error` or `saved-deleting-error` to `saving`.
+- `delete` - Fired when moving from `changed-delete-confirmation` or `saved-delete-confirmation` to `changed-deleting` or `saved-deleting`.
 
 ## Functions
-- `created()` - After responding to the `create` event, call this function on success
-- `updated()` - After responding to the `update` event, call this function on success
-- `deleted()` - After responding to the `delete` event, call this function on success
-- `errored(message)` - After responding to an event, call this function on error
-- `changed()` - After a change is detected in the form, call this function to enable save
-
-## Imports
-- `th-styles` - Global styles
+- `created()` - After responding to the `create` event, call this function on success.
+- `updated()` - After responding to the `update` event, call this function on success.
+- `deleted()` - After responding to the `delete` event, call this function on success.
+- `errored(message)` - After responding to an event, call this function on error.
+- `changed()` - After a change is detected in the form, call this function to enable save.
 
 ## Properties
-- `disabled(Boolean=false)` - If the bar should be disabled (if the form is invalid, for example)
-- `hidden(Boolean=false)` - Whether the bar is hidden or not
-- `message(String='')` - The currently displayed message (or error)
-- `previousState(String='')` - The previous state
-- `state(String='new')` - The current state
+- `state` - The current state.
 
 ### Mermaid graph
 ````text
