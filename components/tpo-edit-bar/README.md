@@ -7,16 +7,16 @@
 | new                         |          | hidden   | hidden | hidden |               |
 | creating                    | disabled | hidden   | hidden | hidden | Creating...   |
 | creating-error              |          | hidden   | hidden | hidden | {error}       |
-| extant                       | disabled |          | hidden | hidden |               |
+| extant                      | disabled |          | hidden | hidden |               |
 | changed                     |          |          | hidden | hidden |               |
 | saving                      | disabled | disabled | hidden | hidden | Saving...     |
 | saving-error                |          |          | hidden | hidden | {error}       |
 | changed-delete-confirmation | hidden   | hidden   |        |        | Are you sure? |
 | changed-deleting            | disabled | disabled | hidden | hidden | deleting...   |
 | changed-deleting-error      |          |          | hidden | hidden | {error}       |
-| extant-delete-confirmation   | hidden   | hidden   |        |        | Are you sure? |
-| extant-deleting              | disabled | disabled | hidden | hidden | deleting...   |
-| extant-deleting-error        | disabled |          | hidden | hidden | {error}       |
+| extant-delete-confirmation  | hidden   | hidden   |        |        | Are you sure? |
+| extant-deleting             | disabled | disabled | hidden | hidden | deleting...   |
+| extant-deleting-error       | disabled |          | hidden | hidden | {error}       |
 
 ## Events
 - `create` - Fired when moving from `new` or `creating-error` to `saving`.
