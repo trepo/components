@@ -1,3 +1,4 @@
+require('tpo-edit-bar');
 const core = require('tpo-mixins/core.js');
 const shadow = require('tpo-mixins/shadow.js');
 

@@ -11,6 +11,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "tpo-edit-bar": "0.0.0",
     "tpo-mixins": "0.0.0"
   }
 }
