@@ -1,0 +1,16 @@
+{
+  "name": "tpo-edit-bar",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/component.js",
+  "scripts": {
+    "karma": "../../node_modules/.bin/karma start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "tpo-mixins": "0.0.0"
+  }
+}
