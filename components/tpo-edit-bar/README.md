@@ -14,14 +14,14 @@
 | saving-error                |             |               |               |                 | X          | X         | {error}       | X     |
 | changed-delete-confirmation | X           | X             | X             |                 |            |           | Are you sure? |       |
 | changed-deleting            |             | X             |               | X               | X          | X         | deleting...   |       |
-| changed-delete-error        |             |               |               |                 | X          | X         | {error}       | X     |
+| changed-deleting-error      |             |               |               |                 | X          | X         | {error}       | X     |
 | saved-delete-confirmation   | X           | X             | X             |                 |            |           | Are you sure? |       |
 | saved-deleting              |             | X             |               | X               | X          | X         | deleting...   |       |
-| saved-delete-error          |             | X             |               |                 | X          | X         | {error}       | X     |
+| saved-deleting-error        |             | X             |               |                 | X          | X         | {error}       | X     |
 
 ## Events
 - `create` - Fired when moving to `saving` from `new`
-- `update` - Fired when moving to `saving` from `changed`, `saving-error`, `changed-delete-error` or `saved-delete-error`
+- `update` - Fired when moving to `saving` from `changed`, `saving-error`, `changed-deleting-error` or `saved-deleting-error`
 - `delete` - Fired when moving to `deleting` from `confirming`
 
 ## Functions
@@ -76,11 +76,11 @@ changed-delete-confirmation-->|yes clicked|changed-deleting
 
 changed-deleting
 changed-deleting-->|deleted called|new
-changed-deleting-->|errored called|changed-delete-error
+changed-deleting-->|errored called|changed-deleting-error
 
-changed-delete-error
-changed-delete-error-->|delete clicked|changed-delete-confirmation
-changed-delete-error-->|save clicked|saving
+changed-deleting-error
+changed-deleting-error-->|delete clicked|changed-delete-confirmation
+changed-deleting-error-->|save clicked|saving
 
 saved-delete-confirmation
 saved-delete-confirmation-->|changed called|changed-delete-confirmation
@@ -89,9 +89,9 @@ saved-delete-confirmation-->|no clicked|saved
 
 saved-deleting
 saved-deleting-->|deleted called|new
-saved-deleting-->|errored called|saved-delete-error
+saved-deleting-->|errored called|saved-deleting-error
 
-saved-delete-error
-saved-delete-error-->|delete clicked|saved-delete-confirmation
-saved-delete-error-->|changed called|changed-delete-error
+saved-deleting-error
+saved-deleting-error-->|delete clicked|saved-delete-confirmation
+saved-deleting-error-->|changed called|changed-deleting-error
 ````

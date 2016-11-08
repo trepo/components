@@ -128,7 +128,7 @@ class EditBar extends core(light(HTMLElement)) {
         this.$.yes.hidden = true;
         this.$.no.hidden = true;
         break;
-      case 'changed-delete-error':
+      case 'changed-deleting-error':
         this.$.message.innerText = this.message;
         this.$.message.classList.add('error');
         this.$.save.hidden = false;
@@ -138,7 +138,7 @@ class EditBar extends core(light(HTMLElement)) {
         this.$.yes.hidden = true;
         this.$.no.hidden = true;
         break;
-      case 'saved-deleting':
+      case 'saved-deleting-error':
         this.$.message.innerText = this.message;
         this.$.message.classList.add('error');
         this.$.save.hidden = false;
@@ -159,7 +159,7 @@ class EditBar extends core(light(HTMLElement)) {
         break;
       case 'changed':
       case 'saving-error':
-      case 'changed-delete-error':
+      case 'changed-deleting-error':
         this.state = 'saving';
         break;
     }
@@ -168,12 +168,12 @@ class EditBar extends core(light(HTMLElement)) {
   _deleteClicked(e) {
     switch(this.state) {
       case 'saved':
-      case 'saved-delete-error':
+      case 'saved-deleting-error':
         this.state = 'saved-delete-confirmation';
         break;
       case 'changed':
       case 'saving-error':
-      case 'changed-delete-error':
+      case 'changed-deleting-error':
         this.state = 'changed-delete-confirmation';
         break;
     }
@@ -221,8 +221,8 @@ class EditBar extends core(light(HTMLElement)) {
       case 'saved-delete-confirmation':
         this.state = 'changed-delete-confirmation';
         break;
-      case 'saved-delete-error':
-        this.state = 'changed-delete-error';
+      case 'saved-deleting-error':
+        this.state = 'changed-deleting-error';
         break;
     }
   }
@@ -237,10 +237,10 @@ class EditBar extends core(light(HTMLElement)) {
         this.state = 'saving-error';
         break;
       case 'saved-deleting':
-        this.state = 'saved-delete-error';
+        this.state = 'saved-deleting-error';
         break;
       case 'changed-deleting':
-        this.state = 'changed-delete-error';
+        this.state = 'changed-deleting-error';
         break;
     }
   }
