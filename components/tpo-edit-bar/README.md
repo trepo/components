@@ -40,3 +40,58 @@
 - `message(String='')` - The currently displayed message (or error)
 - `previousState(String='')` - The previous state
 - `state(String='new')` - The current state
+
+### Mermaid graph
+````text
+graph TB
+new[new*]
+new-->|save clicked|creating
+
+creating
+creating-->|created called|saved
+creating-->|errored called|creating-error
+
+creating-error
+creating-error-->|save clicked|creating
+
+saved[saved*]
+saved-->|changed called|changed
+saved-->|delete clicked|saved-delete-confirmation
+
+changed
+changed-->|save clicked|saving
+changed-->|delete clicked|changed-delete-confirmation
+
+saving
+saving-->|updated called|saved
+saving-->|errored called|saving-error
+
+saving-error
+saving-error-->|save clicked|saving
+saving-error-->|delete clicked|changed-delete-confirmation
+
+changed-delete-confirmation
+changed-delete-confirmation-->|no clicked|changed
+changed-delete-confirmation-->|yes clicked|changed-deleting
+
+changed-deleting
+changed-deleting-->|deleted called|new
+changed-deleting-->|errored called|changed-delete-error
+
+changed-delete-error
+changed-delete-error-->|delete clicked|changed-delete-confirmation
+changed-delete-error-->|save clicked|saving
+
+saved-delete-confirmation
+saved-delete-confirmation-->|changed called|changed-delete-confirmation
+saved-delete-confirmation-->|yes clicked|saved-deleting
+saved-delete-confirmation-->|no clicked|saved
+
+saved-deleting
+saved-deleting-->|deleted called|new
+saved-deleting-->|errored called|saved-delete-error
+
+saved-delete-error
+saved-delete-error-->|delete clicked|saved-delete-confirmation
+saved-delete-error-->|changed called|changed-delete-error
+````
