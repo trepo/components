@@ -30,7 +30,7 @@ class EditBar extends core(light(HTMLElement)) {
     this.$.yes.addEventListener('click', (e) => this._yesClicked());
     this.$.no.addEventListener('click', (e) => this._noClicked());
 
-    if (['new', 'saved'].includes(this.state)) {
+    if (['new', 'extant'].includes(this.state)) {
       this._stateChanged(this.state);
     } else {
       this.state = 'new';
@@ -67,7 +67,7 @@ class EditBar extends core(light(HTMLElement)) {
         this.$.yes.hidden = true;
         this.$.no.hidden = true;
         break;
-      case 'saved':
+      case 'extant':
         this.$.message.innerText = '';
         this.$.message.classList.remove('error');
         this.$.save.hidden = false;
@@ -109,7 +109,7 @@ class EditBar extends core(light(HTMLElement)) {
         this.$.no.hidden = true;
         break;
       case 'changed-delete-confirmation':
-      case 'saved-delete-confirmation':
+      case 'extant-delete-confirmation':
         this.$.message.innerText = 'Are you sure?';
         this.$.message.classList.remove('error');
         this.$.save.hidden = true;
@@ -120,7 +120,7 @@ class EditBar extends core(light(HTMLElement)) {
         this.$.no.disabled = false;
         break;
       case 'changed-deleting':
-      case 'saved-deleting':
+      case 'extant-deleting':
         this.$.message.innerText = 'Deleting...';
         this.$.message.classList.remove('error');
         this.$.save.hidden = false;
@@ -141,7 +141,7 @@ class EditBar extends core(light(HTMLElement)) {
         this.$.yes.hidden = true;
         this.$.no.hidden = true;
         break;
-      case 'saved-deleting-error':
+      case 'extant-deleting-error':
         this.$.message.innerText = this.message;
         this.$.message.classList.add('error');
         this.$.save.hidden = false;
@@ -170,9 +170,9 @@ class EditBar extends core(light(HTMLElement)) {
 
   _deleteClicked(e) {
     switch(this.state) {
-      case 'saved':
-      case 'saved-deleting-error':
-        this.state = 'saved-delete-confirmation';
+      case 'extant':
+      case 'extant-deleting-error':
+        this.state = 'extant-delete-confirmation';
         break;
       case 'changed':
       case 'saving-error':
@@ -184,8 +184,8 @@ class EditBar extends core(light(HTMLElement)) {
 
   _yesClicked(e) {
     switch(this.state) {
-      case 'saved-delete-confirmation':
-        this.state = 'saved-deleting';
+      case 'extant-delete-confirmation':
+        this.state = 'extant-deleting';
         break;
       case 'changed-delete-confirmation':
         this.state = 'changed-deleting';
@@ -195,8 +195,8 @@ class EditBar extends core(light(HTMLElement)) {
 
   _noClicked(e) {
     switch(this.state) {
-      case 'saved-delete-confirmation':
-        this.state = 'saved';
+      case 'extant-delete-confirmation':
+        this.state = 'extant';
         break;
       case 'changed-delete-confirmation':
         this.state = 'changed';
@@ -205,11 +205,11 @@ class EditBar extends core(light(HTMLElement)) {
   }
 
   created() {
-    this.state = 'saved';
+    this.state = 'extant';
   }
 
   updated() {
-    this.state = 'saved';
+    this.state = 'extant';
   }
 
   deleted() {
@@ -218,13 +218,13 @@ class EditBar extends core(light(HTMLElement)) {
 
   changed() {
     switch(this.state) {
-      case 'saved':
+      case 'extant':
         this.state = 'changed';
         break;
-      case 'saved-delete-confirmation':
+      case 'extant-delete-confirmation':
         this.state = 'changed-delete-confirmation';
         break;
-      case 'saved-deleting-error':
+      case 'extant-deleting-error':
         this.state = 'changed-deleting-error';
         break;
     }
@@ -239,8 +239,8 @@ class EditBar extends core(light(HTMLElement)) {
       case 'saving':
         this.state = 'saving-error';
         break;
-      case 'saved-deleting':
-        this.state = 'saved-deleting-error';
+      case 'extant-deleting':
+        this.state = 'extant-deleting-error';
         break;
       case 'changed-deleting':
         this.state = 'changed-deleting-error';
