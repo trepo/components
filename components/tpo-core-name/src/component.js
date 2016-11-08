@@ -1,17 +1,11 @@
 const core = require('tpo-mixins/core.js');
 const shadow = require('tpo-mixins/shadow.js');
 
-const attributes = [
-  'node',
-  'person',
-  'repo',
-];
-
 class CoreName extends shadow(core(HTMLElement)) {
   constructor() {
     super({
       template: 'tpo-core-name',
-      attributes,
+      attributes: CoreName.observedAttributes,
       $: {
         toggle: '#toggle',
       },
@@ -19,7 +13,11 @@ class CoreName extends shadow(core(HTMLElement)) {
   }
 
   static get observedAttributes() {
-    return attributes;
+    return [
+      'node',
+      'person',
+      'repo',
+    ];
   }
 
   connectedCallback() {
