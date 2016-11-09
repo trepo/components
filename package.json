@@ -8,6 +8,7 @@
     "build-fetch-proxy": "webpack test/fetch-proxy.js test/fetch-proxy.bundle.js --module-bind json",
     "clean": "asini clean",
     "demo": "./scripts/demo.js",
+    "karma": "./scripts/karma.js",
     "test": "asini run test"
   },
   "repository": {
