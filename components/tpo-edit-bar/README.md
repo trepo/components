@@ -12,10 +12,10 @@
 | saving                      | disabled | disabled | hidden | hidden | Saving...     |
 | saving-error                |          |          | hidden | hidden | {error}       |
 | changed-delete-confirmation | hidden   | hidden   |        |        | Are you sure? |
-| changed-deleting            | disabled | disabled | hidden | hidden | deleting...   |
+| changed-deleting            | disabled | disabled | hidden | hidden | Deleting...   |
 | changed-deleting-error      |          |          | hidden | hidden | {error}       |
 | extant-delete-confirmation  | hidden   | hidden   |        |        | Are you sure? |
-| extant-deleting             | disabled | disabled | hidden | hidden | deleting...   |
+| extant-deleting             | disabled | disabled | hidden | hidden | Deleting...   |
 | extant-deleting-error       | disabled |          | hidden | hidden | {error}       |
 
 ## Events

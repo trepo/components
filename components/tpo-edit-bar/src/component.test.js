@@ -79,31 +79,193 @@ describe('tpo-core-name', () => {
     ensure('message', 'equals', 'Creating...');
   });
 
-  it('should display saving-error correctly');
+  it('should display saving-error correctly', () => {
+    create();
+    element.$.save.click();
+    element.errored('error message');
 
-  it('should display extant correctly');
+    expect(element.state).to.equal('creating-error');
+    ensure('save', 'shown');
+    ensure('delete', 'hidden');
+    ensure('yes', 'hidden');
+    ensure('no', 'hidden');
+    ensure('message', 'equals', 'error message');
+  });
 
-  it('should display changed correctly');
+  it('should display extant correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
 
-  it('should display saving correctly');
+    expect(element.state).to.equal('extant');
+    ensure('save', 'disabled');
+    ensure('delete', 'shown');
+    ensure('yes', 'hidden');
+    ensure('no', 'hidden');
+    ensure('message', 'equals', '');
+  });
 
-  it('should display saving-error correctly');
+  it('should display changed correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
+    element.changed();
 
-  it('should display changed-delete-confirmation correctly');
+    expect(element.state).to.equal('changed');
+    ensure('save', 'shown');
+    ensure('delete', 'shown');
+    ensure('yes', 'hidden');
+    ensure('no', 'hidden');
+    ensure('message', 'equals', '');
+  });
 
-  it('should display changed-deleting correctly');
+  it('should display saving correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
+    element.changed();
+    element.$.save.click();
 
-  it('should display changed-deleting-error correctly');
+    expect(element.state).to.equal('saving');
+    ensure('save', 'disabled');
+    ensure('delete', 'disabled');
+    ensure('yes', 'hidden');
+    ensure('no', 'hidden');
+    ensure('message', 'equals', 'Saving...');
+  });
 
-  it('should display extant-delete-confirmation correctly');
+  it('should display saving-error correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
+    element.changed();
+    element.$.save.click();
+    element.errored('error message');
 
-  it('should display extant-deleting correctly');
+    expect(element.state).to.equal('saving-error');
+    ensure('save', 'shown');
+    ensure('delete', 'shown');
+    ensure('yes', 'hidden');
+    ensure('no', 'hidden');
+    ensure('message', 'equals', 'error message');
+  });
 
-  it('should display extant-deleting-error correctly');
+  it('should display changed-delete-confirmation correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
+    element.changed();
+    element.$.delete.click();
 
-  it('should fire create event');
+    expect(element.state).to.equal('changed-delete-confirmation');
+    ensure('save', 'hidden');
+    ensure('delete', 'hidden');
+    ensure('yes', 'shown');
+    ensure('no', 'shown');
+    ensure('message', 'equals', 'Are you sure?');
+  });
 
-  it('should fire update event');
+  it('should display changed-deleting correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
+    element.changed();
+    element.$.delete.click();
+    element.$.yes.click();
 
-  it('should fire delete event');
+    expect(element.state).to.equal('changed-deleting');
+    ensure('save', 'disabled');
+    ensure('delete', 'disabled');
+    ensure('yes', 'hidden');
+    ensure('no', 'hidden');
+    ensure('message', 'equals', 'Deleting...');
+  });
+
+  it('should display changed-deleting-error correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
+    element.changed();
+    element.$.delete.click();
+    element.$.yes.click();
+    element.errored('error message');
+
+    expect(element.state).to.equal('changed-deleting-error');
+    ensure('save', 'shown');
+    ensure('delete', 'shown');
+    ensure('yes', 'hidden');
+    ensure('no', 'hidden');
+    ensure('message', 'equals', 'error message');
+  });
+
+  it('should display extant-delete-confirmation correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
+    element.$.delete.click();
+
+    expect(element.state).to.equal('extant-delete-confirmation');
+    ensure('save', 'hidden');
+    ensure('delete', 'hidden');
+    ensure('yes', 'shown');
+    ensure('no', 'shown');
+    ensure('message', 'equals', 'Are you sure?');
+  });
+
+  it('should display extant-deleting correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
+    element.$.delete.click();
+    element.$.yes.click();
+
+    expect(element.state).to.equal('extant-deleting');
+    ensure('save', 'disabled');
+    ensure('delete', 'disabled');
+    ensure('yes', 'hidden');
+    ensure('no', 'hidden');
+    ensure('message', 'equals', 'Deleting...');
+  });
+
+  it('should display extant-deleting-error correctly', () => {
+    create();
+    element.$.save.click();
+    element.created();
+    element.$.delete.click();
+    element.$.yes.click();
+    element.errored('error message');
+
+    expect(element.state).to.equal('extant-deleting-error');
+    ensure('save', 'disabled');
+    ensure('delete', 'shown');
+    ensure('yes', 'hidden');
+    ensure('no', 'hidden');
+    ensure('message', 'equals', 'error message');
+  });
+
+  it('should fire create event', (done) => {
+    create();
+
+    element.addEventListener('create', () => done());
+
+    element.$.save.click();
+  });
+
+  it('should fire update event', (done) => {
+    create({state: 'extant'});
+
+    element.addEventListener('update', () => done());
+
+    element.changed();
+    element.$.save.click();
+  });
+
+  it('should fire delete event', (done) => {
+    create({state: 'extant'});
+
+    element.addEventListener('delete', () => done());
+
+    element.$.delete.click();
+    element.$.yes.click();
+  });
 });
