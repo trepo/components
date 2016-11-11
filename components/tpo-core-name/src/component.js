@@ -44,8 +44,28 @@ class CoreName extends core(shadow(HTMLElement)) {
   }
 
   _create() {
-    console.log('create');
-    this.$.bar.created();
+    fetch(this.repo, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `mutation create($input: NameCreateInput) {
+          data:createName(input: $input) {id}
+        }`,
+        variables: JSON.stringify({
+          input: {
+            name: this.$.name.value,
+            person: this.person,
+          },
+        }),
+      }),
+    })
+    .then((res) => res.json())
+    .then((json) => {
+      this.node = json.data.data.id;
+      this.$.bar.created();
+    });
   }
 
   _update() {
