@@ -4,11 +4,12 @@
   "private": true,
   "description": "Trepo Web Componets Monorepo",
   "scripts": {
-    "bootstrap": "asini bootstrap && npm run build-fetch-proxy",
-    "build-fetch-proxy": "webpack test/fetch-proxy.js test/fetch-proxy.bundle.js --module-bind json",
+    "bootstrap": "asini bootstrap && npm run build:fetch-proxy",
+    "build:fetch-proxy": "webpack test/fetch-proxy.js test/fetch-proxy.bundle.js --module-bind json",
     "clean": "asini clean",
     "demo": "./scripts/demo.js",
     "karma": "./scripts/karma.js",
+    "server": "trepo-server",
     "test": "asini run test"
   },
   "repository": {
@@ -32,7 +33,7 @@
     "karma-webpack": "1.8.0",
     "mocha": "3.1.2",
     "raw-loader": "0.5.1",
-    "trepo-core": "0.1.0",
+    "trepo-server": "0.1.0",
     "webpack": "1.13.3",
     "webpack-dev-server": "1.16.2"
   }
