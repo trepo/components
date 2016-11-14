@@ -48,9 +48,7 @@ module.exports = (superclass) => class extends superclass {
     })
     .then((res) => res.json())
     .then((json) => {
-      console.log(json)
       if (json.errors) {
-        console.log('errors')
         const messages = [];
         for (const error of json.errors) {
           messages.push(error.message);
