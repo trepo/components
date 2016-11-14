@@ -1,6 +1,27 @@
 <html>
   <body>
     <script src="bundle.js"></script>
-    <tpo-core-name repo="http://localhost:8985/graphql" node="" person="217dc234-08da-45c4-8c54-24a2f7b54801"></tpo-core-name>
+    <script>
+      fetch('http://localhost:8985/graphql', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          query: `mutation x {
+            createPerson(input: {}) {
+              id
+            }
+          }`
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        const id = data.data.createPerson.id;
+        document.body.insertAdjacentHTML('beforeend',
+        `<tpo-core-name repo="http://localhost:8985/graphql" person="${id}"></tpo-core-name>`
+        );
+      });
+    </script>
   </body>
 </html>

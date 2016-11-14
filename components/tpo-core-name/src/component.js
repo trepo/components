@@ -1,8 +1,9 @@
 require('tpo-edit-bar');
 const core = require('tpo-mixins/core.js');
 const shadow = require('tpo-mixins/shadow.js');
+const trepo = require('tpo-mixins/trepo.js');
 
-class CoreName extends core(shadow(HTMLElement)) {
+class CoreName extends trepo(core(shadow(HTMLElement))) {
   constructor() {
     super({
       template: 'tpo-core-name',
@@ -44,38 +45,56 @@ class CoreName extends core(shadow(HTMLElement)) {
   }
 
   _create() {
-    fetch(this.repo, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    this._mutation({
+      query: `createName(input: $input) {id}`,
+      input: {
+        name: this.$.name.value,
+        person: this.person,
       },
-      body: JSON.stringify({
-        query: `mutation create($input: NameCreateInput) {
-          data:createName(input: $input) {id}
-        }`,
-        variables: JSON.stringify({
-          input: {
-            name: this.$.name.value,
-            person: this.person,
-          },
-        }),
-      }),
+      type: 'NameCreateInput',
     })
-    .then((res) => res.json())
-    .then((json) => {
-      this.node = json.data.data.id;
+    .then((data) => {
+      this.node = data.id;
       this.$.bar.created();
+    })
+    .catch((error) => {
+      this.$.bar.errored('Create failed');
     });
   }
 
   _update() {
-    console.log('update');
-    this.$.bar.updated();
+    this._mutation({
+      query: `updateName(input: $input) {id}`,
+      input: {
+        id: this.node,
+        name: this.$.name.value,
+        person: this.person,
+      },
+      type: 'NameUpdateInput',
+    })
+    .then((data) => {
+      this.$.bar.updated();
+    })
+    .catch((error) => {
+      this.$.bar.errored('Update failed');
+    });
   }
 
   _delete() {
-    console.log('delete');
-    this.$.bar.deleted();
+    this._mutation({
+      query: `deleteName(input: $input)`,
+      input: {
+        id: this.node,
+      },
+      type: 'DeleteInput',
+    })
+    .then((data) => {
+      this.node = null;
+      this.$.bar.deleted();
+    })
+    .catch((error) => {
+      this.$.bar.errored('Delete failed');
+    });
   }
 }
 
