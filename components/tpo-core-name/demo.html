@@ -2,6 +2,7 @@
   <body>
     <script src="bundle.js"></script>
     <script>
+      const name = 'Bob Freemer';
       fetch('http://localhost:8985/graphql', {
         method: 'POST',
         headers: {
@@ -9,18 +10,28 @@
         },
         body: JSON.stringify({
           query: `mutation x {
-            createPerson(input: {}) {
+            createPerson(input: {name: "${name}"}) {
               id
+              name {
+                id
+              }
             }
           }`
         })
       })
       .then(res => res.json())
       .then(data => {
-        const id = data.data.createPerson.id;
-        document.body.insertAdjacentHTML('beforeend',
-        `<tpo-core-name repo="http://localhost:8985/graphql" person="${id}"></tpo-core-name>`
-        );
+        const personId = data.data.createPerson.id;
+        const nameId = data.data.createPerson.name.id;
+
+        const node = document.createElement('tpo-core-name');
+        node.setInitialState({
+          repo: 'http://localhost:8985/graphql',
+          person: personId,
+          node: nameId,
+          name,
+        });
+        document.body.appendChild(node);
       });
     </script>
   </body>

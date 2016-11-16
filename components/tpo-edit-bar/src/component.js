@@ -1,7 +1,6 @@
 const core = require('tpo-mixins/core.js');
-const shadow = require('tpo-mixins/shadow.js');
 
-class EditBar extends core(shadow(HTMLElement)) {
+class EditBar extends core(HTMLElement) {
   constructor() {
     super({
       template: 'tpo-edit-bar',

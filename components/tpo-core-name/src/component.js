@@ -1,9 +1,8 @@
 require('tpo-edit-bar');
 const core = require('tpo-mixins/core.js');
-const shadow = require('tpo-mixins/shadow.js');
 const trepo = require('tpo-mixins/trepo.js');
 
-class CoreName extends trepo(core(shadow(HTMLElement))) {
+class CoreName extends trepo(core(HTMLElement)) {
   constructor() {
     super({
       template: 'tpo-core-name',
@@ -16,6 +15,7 @@ class CoreName extends trepo(core(shadow(HTMLElement))) {
     });
   }
 
+  // TODO don't put things here that we don't have a callback for
   static get observedAttributes() {
     return [
       'node',
@@ -24,13 +24,24 @@ class CoreName extends trepo(core(shadow(HTMLElement))) {
     ];
   }
 
+  initializeState({node = this.node, person = this.person,
+    repo = this.repo, name = ''}) {
+    this.node = node;
+    this.person = person;
+    this.repo = repo;
+    this._template.$.name.value = name;
+
+    if (this.node !== null) {
+      this._template.$.bar.setAttribute('state', 'extant');
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
 
+    // Setup event listeners
     this.$.toggle.addEventListener('click', (e) => this._toggle());
-
     this.$.name.addEventListener('input', (e) => this.$.bar.changed());
-
     this.$.bar.addEventListener('create', (e) => this._create());
     this.$.bar.addEventListener('update', (e) => this._update());
     this.$.bar.addEventListener('delete', (e) => this._delete());
